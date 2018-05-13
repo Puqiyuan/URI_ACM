@@ -1,6 +1,6 @@
 # URI_ACM
 
-This repository storing the C source codes for https://www.urionlinejudge.com.br
+This repository stores the C source codes for https://www.urionlinejudge.com.br
 problems. All codes are 100 scores.
 
 At the same time I feel very sorry if you are in mainland China because you have to bypass
