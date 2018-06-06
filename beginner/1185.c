@@ -1,4 +1,4 @@
-// https://www.urionlinejudge.com.br/judge/en/problems/view/1184
+// https://www.urionlinejudge.com.br/judge/en/problems/view/1185
 
 #include <stdio.h>
 
@@ -17,9 +17,9 @@ int main(int argc, char *argv[])
 				scanf("%f", &m[i][j]);
 		}
 
-	for (i = 1; i <= 11; i++)
+	for (i = 0; i <= 10; i++)
 		{
-			for (j = 0; j <= i - 1; j++)
+			for (j = 10 - i; j >= 0; j--)
 				sum += m[i][j];
 		}
 
