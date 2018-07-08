@@ -5,7 +5,8 @@
 
 int main(int argc, char *argv[])
 {
-	int n, in1, in2, spc1, spc2, spc3, len, i;
+	int n, spc1, spc2, spc3, len, i;
+	long long int in1, in2;
 	char tmp[200], eat;
 	scanf("%d", &n);
 
@@ -14,7 +15,7 @@ int main(int argc, char *argv[])
 			scanf("%c", &eat);
 			scanf("%[^\n]s", tmp);
 			scanf("%c", &eat);
-			scanf("%d %d", &in1, &in2);
+			scanf("%lld %lld", &in1, &in2);
 
 			len = strlen(tmp);
 
@@ -47,14 +48,31 @@ int main(int argc, char *argv[])
 
 			if ((in1 + in2) % 2 == 0)
 				{
-					for (i = 0; i < spc1; i++)
-						printf("%c", tmp[i]);
+					if (tmp[spc1 + 1] == 'P')
+						{
+							for (i = 0; i < spc1; i++)
+								printf("%c", tmp[i]);
+						}
+					else
+						{
+							for (i = spc2 + 1; i < spc3; i++)
+								printf("%c", tmp[i]);
+						}
+					
 					printf("\n");
 				}
 			else
 				{
-					for (i = spc2 + 1; i < spc3; i++)
-						printf("%c", tmp[i]);
+					if (tmp[spc1 + 1] == 'I')
+						{
+							for (i = 0; i < spc1; i++)
+								printf("%c", tmp[i]);
+						}
+					else
+						{
+							for (i = spc2 + 1; i < spc3; i++)
+								printf("%c", tmp[i]);
+						}
 					printf("\n");
 				}
 			
