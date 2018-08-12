@@ -7,9 +7,9 @@ int main(int argc, char *argv[])
 	int p;
 
 	while (scanf("%d", &p) != EOF)
-	{
-		printf("%d\n", p - 1);
-	}
+		{
+			printf("%d\n", p - 1);
+		}
 	
     return 0;
 }
