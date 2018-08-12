@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 	scanf("%d %d", &n, &m);
 
 	char map[m][8];
-
+	
 	for (i = 0; i <= m - 1; i++)
 		scanf("%s", &map[i]);
 
