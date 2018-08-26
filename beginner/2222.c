@@ -1,88 +1,81 @@
 // https://www.urionlinejudge.com.br/judge/en/problems/view/2222
 
 #include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
+// first quick sort then bin-find.
+
+int partition(int *A, int p, int r);
+
+int quick_sort(int *A, int p, int r)
+{
+	int q;
+  
+	if (p < r)
+		{
+			q = partition(A, p, r);
+			quick_sort(A, p, q - 1);
+			quick_sort(A, q + 1, r);
+		}
+
+	return 0;
+}
+
+
+int partition(int *A, int p, int r)
+{
+	int x = A[r], i = p - 1, j, tmp1, tmp2;
+
+	for (j = p; j <= r - 1; j++)
+		{
+			if (A[j] <= x)
+				{
+					i++;
+					tmp1 = A[i];
+					A[i] = A[j];
+					A[j] = tmp1;
+				}
+		}
+
+	tmp2 = A[i + 1];
+	A[i + 1] = A[r];
+	A[r] = tmp2;
+
+	return i + 1;
+}
+
+int bin_search(int *A, int n, int x)
+{
+	int left = 1; int right = n;
+
+	while(left <= right)
+		{
+			int middle = (left + right) / 2;
+			if (x == A[middle])
+				return middle;
+
+			if (x > A[middle])
+				left = middle + 1;
+
+			else
+				right = middle - 1;
+		}
+
+	return -1;
+}
 
 int inter(int *arr1, int *arr2, int con1, int con2)
 {
-	int i, j, count, len, k = 1, l;
+	int i, count = 0;
+	
+	quick_sort(arr1, 1, con1);
+	quick_sort(arr2, 1, con2);
 
-	if (con1 >= con2)
-		len = con1;
-	else
-		len = con2;
-	
-	long *res = (long*)malloc((len + 2) * sizeof(long));
-	res[1] = LONG_MAX;
-	res[0] = 0;
-	
 	for (i = 1; i <= con1; i++)
 		{
-			for (j = 1; j <= con2; j++)
-				{
-					if (arr1[i] == arr2[j])
-						{
-							for (l = 1; l <= k; l++)
-								{
-									if (res[l] != arr1[i])
-										continue;
-									
-									else
-										break;
-								}
-
-							if (l == k + 1)
-								{
-									res[k] = arr1[i];
-									k++;
-									res[0] = k - 1;
-									break;
-								}
-						}
-				}
+			if (bin_search(arr2, con2, arr1[i]) != -1)
+				count++;
 		}
-	count = res[0];
-	free(res);
-
+	
 	return count;
-}
-
-int Union(int *arr1, int *arr2, int con1, int con2)
-{
-	int len = (con1 + con2 + 2), i, k, l;
-	int *res = (int*)malloc(len * sizeof(int));
-	int *Res = (int*)malloc(len * sizeof(int));
-	Res[0] = 0;
-	Res[1] = INT_MAX;
-
-	for (i = 1; i <= con1; i++)
-		res[i] = arr1[i];
-	for (k = 1; k <= con2; k++)
-		{
-			res[i] = arr2[k];
-			i++;
-		}
-
-	k = 1;
-	for (i = 1; i <= con1 + con2; i++)
-		{
-			for (l = 1; l <= k; l++)
-				{
-					if (Res[l] != res[i])
-						continue;
-					else
-						break;
-				}
-			if (l == k + 1)
-				{
-					Res[k] = res[i];
-					k++;
-					Res[0] = k - 1;
-				}
-		}
-	
-	return Res[0];
 }
 
 int main(int argc, char *argv[])
@@ -111,14 +104,12 @@ int main(int argc, char *argv[])
 						printf("%d\n", inter( sets[oper[i][1] - 1], sets[oper[i][2] - 1],
 											  sets[oper[i][1] - 1][0], sets[oper[i][2] - 1][0]) );
 					if (oper[i][0] == 2)
-						printf("%d\n", Union( sets[oper[i][1] - 1], sets[oper[i][2] - 1],
-											  sets[oper[i][1] - 1][0], sets[oper[i][2] - 1][0]));
+						printf("%d\n", sets[oper[i][1] - 1][0] + sets[oper[i][2] - 1][0] -
+							   inter( sets[oper[i][1] - 1], sets[oper[i][2] - 1],
+									  sets[oper[i][1] - 1][0], sets[oper[i][2] - 1][0]));
 				}
 			scanf("%d", &n);
 		}
-
 		
     return 0;
 }
-
- 
