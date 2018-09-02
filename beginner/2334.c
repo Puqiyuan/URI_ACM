@@ -11,5 +11,6 @@ int main()
 			if(n == 0ll) printf("0\n");
 			else printf("%llu\n", n - 1ll);
 		}
+	
 	return 0;
 }
